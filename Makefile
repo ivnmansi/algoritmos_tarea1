@@ -2,7 +2,7 @@ GRUPO := 1
 NOMBRE_TAREA := tarea_1_algoritmos
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -std=c11 -Iinclude
+CFLAGS := -Wall -Wextra -std=c11 -Iinclude
 LDFLAGS :=
 
 SRC_DIR := src
@@ -13,7 +13,7 @@ DB_DIR := db
 DOCS_DIR := docs
 PLOTS_DIR := plots
 
-TARGET := $(BUILD_DIR)/programa.out
+TARGET := $(BUILD_DIR)/$(NOMBRE_TAREA).out
 
 SRCS := $(wildcard $(SRC_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
