@@ -82,6 +82,26 @@ void moveNode(Node node, Node position){
 }
 
 /**
+ * @brief Intercambia dos nodos (la data entre ellas es suficiente)
+ * 
+ * @param node1 
+ * @param node2 
+ */
+void swapNodes(Node node1, Node node2){
+    if(node1 == NULL || node2 == NULL){
+        return;
+    }
+
+    if(node1 == node2){
+        return;
+    }
+
+    Deportista tempData = node1->data;
+    node1->data = node2->data;
+    node2->data = tempData;
+}
+
+/**
  * @brief Elimina un nodo de una lista
  * 
  * @param node 

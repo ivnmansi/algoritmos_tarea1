@@ -30,6 +30,7 @@ LinkedList createEmptyList();
 void addDeportistaToList(LinkedList linkedList, Deportista deportista);
 
 void moveNode(Node node, Node position);
+void swapNodes(Node node1, Node node2);
 void deleteNode(Node node);
 
 void deleteList(LinkedList linkedList);
