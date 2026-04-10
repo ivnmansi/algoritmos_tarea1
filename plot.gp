@@ -1,5 +1,5 @@
 set datafile separator ","
-set terminal pngcairo size 800,600 enhanced font 'Arial,10'
+set terminal pdfcairo font "Arial,12" size 5in,3in
 set output 'plots/plot.png'
 
 set title 'Titulo'
