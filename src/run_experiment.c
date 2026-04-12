@@ -146,8 +146,22 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
             printf("Aun no esta implementado\n");
             break;
         case COCKTAIL_SHAKER_SORT:
-            // Aqui va cocktail shaker sort
-            printf("Aun no esta implementado\n");
+            if(load_data(&deportistas, &count) == 0){
+                return;
+            }
+            cocktail_shaker_sort(deportistas, count, criteria, order);
+            if(rankingAmount > count){
+                rankingAmount = count;
+            }
+
+            for(i = 0; i < rankingAmount; i++){
+                if(order != 0){
+                    printf("%d. ", i + 1);
+                }
+                print_deportista(deportistas[i]);
+            }
+
+            freeDeportistasArray(deportistas, count);
             break;
         default:
             printf("Error\n");
