@@ -5,7 +5,6 @@
 
 
 #include "sorting.h"
-#include "deportista.h"
 
 /**
  * @brief Compara dos deportistas según un criterio de ordenamiento.
