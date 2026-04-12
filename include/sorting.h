@@ -37,9 +37,10 @@ typedef enum {
     SEARCH_BY_ID = 1
 } SearchCriteria;
 
+int compare_by_criteria(Deportista left, Deportista right, SortCriteria criteria);
 
 void cocktail_shaker_sort(Deportista* array, int n, SortCriteria criteria, SortOrder order);
-
 void insertion_sort_deportistas(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order);
+void optimized_bubble_sort(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order);
 
 #endif

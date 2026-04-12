@@ -11,5 +11,4 @@ void createDeportistasCSV(int cantidadDatos);
 Deportista* loadDeportistasArray(int *count);
 void freeDeportistasArray(Deportista *deportistas, int count);
 
-
 #endif

@@ -177,3 +177,5 @@ void freeDeportistasArray(Deportista *deportistas, int count){
 
     free(deportistas);
 }
+
+

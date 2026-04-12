@@ -10,4 +10,7 @@
 #define BLUE "\033[34m"
 #define MAGENTA "\033[35m"
 
+void printDeportistasArray(Deportista *deportistas, int rankingAmount, SortOrder order);
+
+
 #endif

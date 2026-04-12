@@ -9,6 +9,15 @@
 #include "print_format.h"
 
 
+void printDeportistasArray(Deportista *deportistas, int rankingAmount, SortOrder order){
+    for(int i = 0; i < rankingAmount; i++){
+        if(order != 0){
+            printf("%d. ", i + 1);
+        }
+        print_deportista(deportistas[i]);
+    }
+}
+
 /**
  * @brief Carga el CSV actual en un arreglo.
  *
@@ -114,7 +123,7 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
 {
     Deportista *deportistas;
     SortAlgorithm algorithmOption = ask_sort_algorithm();
-    int count, i;
+    int count;
 
 
     switch(algorithmOption){
@@ -128,18 +137,19 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
                 rankingAmount = count;
             }
 
-            for(i = 0; i < rankingAmount; i++){
-                if(order != 0){
-                    printf("%d. ", i + 1);
-                }
-                print_deportista(deportistas[i]);
-            }
+            printDeportistasArray(deportistas, rankingAmount, order);
 
             freeDeportistasArray(deportistas, count);
             break;
         case BUBBLE_SORT:
-            // Aqui va bubble sort optimizado
-            printf("Aun no esta implementado\n");
+            if(load_data(&deportistas, &count) == 0){
+                return;
+            }
+            optimized_bubble_sort(deportistas, count, criteria, order);
+            if(rankingAmount > count){
+                rankingAmount = count;
+            }
+            printDeportistasArray(deportistas, rankingAmount, order);
             break;
         case SELECTION_SORT:
             // Aqui va selection sort optimizado
