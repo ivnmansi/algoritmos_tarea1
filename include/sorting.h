@@ -38,8 +38,6 @@ typedef enum {
 } SearchCriteria;
 
 
-void swap_deportistas(Deportista* a, Deportista* b);
-
 void cocktail_shaker_sort(Deportista* array, int n, SortCriteria criteria, SortOrder order);
 
 void insertion_sort_deportistas(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order);

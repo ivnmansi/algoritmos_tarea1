@@ -6,25 +6,8 @@
 #include "base.h"
 #include "csv.h"
 #include "sorting.h"
+#include "print_format.h"
 
-/**
- * @brief Imprime un deportista.
- *
- * @param deportista Deportista a imprimir.
- */
-static void print_deportista(Deportista deportista)
-{
-    if(deportista == NULL){
-        return;
-    }
-
-    printf("ID: %d | Nombre: %s | Equipo: %s | Puntaje: %.2f | Competencias: %d\n",
-        deportista->ID,
-        deportista->Nombre,
-        deportista->Equipo,
-        deportista->Puntaje,
-        deportista->Competencias);
-}
 
 /**
  * @brief Carga el CSV actual en un arreglo.
@@ -66,24 +49,27 @@ static int load_data(Deportista **deportistas, int *count)
 static SortAlgorithm ask_sort_algorithm()
 {
     char option[16];
+    int selected;
 
-    printf("Seleccione algoritmo de ordenamiento:\n");
-    printf("1. Insertion sort\n");
-    printf("2. Bubble sort\n");
-    printf("3. Selection sort\n");
-    printf("4. Cocktail shaker sort\n");
-    printf("Opcion: ");
+    do {
+        system("clear");
 
-    if(fgets(option, sizeof(option), stdin) == NULL){
-        return 0;
+        printf(BOLD BLUE "=== Algoritmo de ordenamiento ===\n" NORMAL);
+        printf("  1) Insertion sort\n");
+        printf("  2) Bubble sort\n");
+        printf("  3) Selection sort\n");
+        printf("  4) Cocktail shaker sort\n\n");
+        printf(BOLD "Opcion: " NORMAL);
+
+        if(fgets(option, sizeof(option), stdin) == NULL){
+            return 0;
+        }
+
+        selected = atoi(option);
     }
+    while(selected < INSERTION_SORT || selected > COCKTAIL_SHAKER_SORT);
 
-    SortAlgorithm alg = atoi(option);
-    if(alg != INSERTION_SORT && alg != BUBBLE_SORT && alg != SELECTION_SORT && alg != COCKTAIL_SHAKER_SORT){
-        return 0;
-    }
-
-    return alg;
+    return (SortAlgorithm)selected;
 }
 
 /**
@@ -94,22 +80,25 @@ static SortAlgorithm ask_sort_algorithm()
 static SearchAlgorithm ask_search_algorithm()
 {
     char option[16];
+    int selected;
 
-    printf("Seleccione algoritmo de busqueda:\n");
-    printf("1. Busqueda secuencial\n");
-    printf("2. Busqueda binaria\n");
-    printf("Opcion: ");
+    do {
+        system("clear");
 
-    if(fgets(option, sizeof(option), stdin) == NULL){
-        return 0;
+        printf(BOLD BLUE "=== Algoritmo de busqueda ===\n" NORMAL);
+        printf("  1) Busqueda secuencial\n");
+        printf("  2) Busqueda binaria\n\n");
+        printf(BOLD "Opcion: " NORMAL);
+
+        if(fgets(option, sizeof(option), stdin) == NULL){
+            return 0;
+        }
+
+        selected = atoi(option);
     }
+    while(selected < 1 || selected > 2);
 
-    SearchAlgorithm alg = atoi(option);
-    if(alg != SECUENTIAL_SEARCH && alg != BINARY_SEARCH){
-        return 0;
-    }
-
-    return alg;
+    return (SearchAlgorithm)selected;
 }
 
 
@@ -241,23 +230,26 @@ void print_help(const char *programName)
 static SortCriteria ask_sort_criteria()
 {
     char option[16];
+    SortCriteria criteria;
 
-    printf("Seleccione campo de ordenamiento:\n");
-    printf("1. ID\n");
-    printf("2. Puntaje\n");
-    printf("3. Competencias\n");
-    printf("4. Nombre\n");
-    printf("5. Equipo\n");
-    printf("Opcion: ");
+    do {
+        system("clear");
 
-    if(fgets(option, sizeof(option), stdin) == NULL){
-        return 0;
+        printf(BOLD BLUE "=== Campo de ordenamiento ===\n" NORMAL);
+        printf("  1) ID\n");
+        printf("  2) Puntaje\n");
+        printf("  3) Competencias\n");
+        printf("  4) Nombre\n");
+        printf("  5) Equipo\n\n");
+        printf(BOLD "Opcion: " NORMAL);
+
+        if(fgets(option, sizeof(option), stdin) == NULL){
+            return 0;
+        }
+
+        criteria = atoi(option);
     }
-
-    SortCriteria criteria = atoi(option);
-    if(criteria != SORT_BY_ID && criteria != SORT_BY_PUNTAJE && criteria != SORT_BY_COMPETENCIAS && criteria != SORT_BY_NOMBRE && criteria != SORT_BY_EQUIPO){
-        return 0;
-    }
+    while(criteria < 1 || criteria > 5);
 
     return criteria;
 }
@@ -270,22 +262,25 @@ static SortCriteria ask_sort_criteria()
 SortOrder ask_sort_order()
 {
     char option[16];
+    int selected;
 
-    printf("Seleccione orden:\n");
-    printf("1. Descendente\n");
-    printf("2. Ascendente\n");
-    printf("Opcion: ");
+    do {
+        system("clear");
 
-    if(fgets(option, sizeof(option), stdin) == NULL){
-        return 0;
+        printf(BOLD BLUE "=== Orden ===\n" NORMAL);
+        printf("  1) Descendente\n");
+        printf("  2) Ascendente\n\n");
+        printf(BOLD "Opcion: " NORMAL);
+
+        if(fgets(option, sizeof(option), stdin) == NULL){
+            return 0;
+        }
+
+        selected = atoi(option);
     }
+    while(selected < 1 || selected > 2);
 
-    SortOrder order = atoi(option);
-    if(order != DESCENDING && order != ASCENDING){
-        return 0;
-    }
-
-    return order;
+    return (selected == 1) ? DESCENDING : ASCENDING;
 }
 
 void runExperiment()
