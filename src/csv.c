@@ -51,7 +51,7 @@ void createDeportistasCSV(int cantidadDatos){
     }
 
     free(ids);
-    printf("Archivo CSV creado con éxito.\n");
+    //printf("Archivo CSV creado con éxito.\n");
     fclose(f);
 }
 

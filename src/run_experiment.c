@@ -223,7 +223,7 @@ void search_by_id(int targetId)
             // Requisito para busqueda binaria: arreglo ordenado por ID ascendente
             insertion_sort_deportistas(deportistas, count, SORT_BY_ID, ASCENDING);
 
-            index = iterative_binary_search_by_id(deportistas, count, targetId);
+            index = binary_search_by_id(deportistas, count, targetId);
             if(index < 0){
                 freeDeportistasArray(deportistas, count);
                 printf("No se encontro un deportista con ID %d\n", targetId);
@@ -262,6 +262,7 @@ void print_help(const char *programName)
     printf("  -t                 Ordena deportistas\n");
     printf("  -id [valor]        Busca un deportista por ID\n");
     printf("  -r [cantidad]      Muestra el top N por puntaje\n");
+    printf("  -b                 Ejecuta benchmark de busqueda\n");
 }
 
 /**
@@ -335,10 +336,79 @@ void runExperiment()
 
 }
 
-/**
-    - Cosas por hacer:
-        - Implementar Cocktail shaker sort en la ejecucion
-        - Implementar los algoritmos de ordenamiento restantes
-        - Implementar la búsqueda binaria
-        - Agregar validaciones de entrada
- */
+void run_search_benchmark()
+{
+    const int sizes[] = {10, 100, 1000, 10000};
+    const int num_sizes = (int)(sizeof(sizes) / sizeof(sizes[0]));
+    const int repeats = 30; // cantidad de veces que se repite cada prueba para promediar resultados
+
+    FILE *out = fopen(BENCHMARK_ROUTE, "w");
+    if(out == NULL){
+        printf("No se pudo crear archivo\n");
+        return;
+    }
+
+    fprintf(out, "n,repeticiones,promedio_secuencial_s,promedio_binaria_s\n");
+    printf("n | repeticiones | secuencial(s) | binaria(s)\n");
+    printf("-------------------------------------------------\n");
+
+    for(int i = 0; i < num_sizes; i++){
+        int n = sizes[i];
+        double total_seq = 0;
+        double total_bin = 0;
+        int validRuns = 0;
+
+        for(int j = 0; j < repeats; j++){
+            int count = 0;
+            Deportista *deportistas;
+            int targetId;
+            clock_t start, end;
+
+            createDeportistasCSV(n);
+            deportistas = loadDeportistasArray(&count);
+            if(deportistas == NULL || count <= 0){
+                if(deportistas != NULL){
+                    freeDeportistasArray(deportistas, count);
+                }
+                continue;
+            }
+
+            // Se toma el ID del ultimo elemento arbitrariamente (asi se asegura que existe)
+            targetId = deportistas[count - 1]->ID;
+
+            start = clock();
+            sequential_search_by_id(deportistas, count, targetId);
+            end = clock();
+            total_seq += (double)(end - start) / CLOCKS_PER_SEC;
+
+            // Insertion sort necesita tener el arreglo ordenado
+            insertion_sort_deportistas(deportistas, count, SORT_BY_ID, ASCENDING);
+
+            start = clock();
+            binary_search_by_id(deportistas, count, targetId);
+            end = clock();
+            total_bin += (double)(end - start) / CLOCKS_PER_SEC;
+
+            validRuns++;
+            freeDeportistasArray(deportistas, count);
+        }
+
+        if(validRuns == 0){ //Si no se pudo ejecutar ninguna prueba, se escribe 0 en los tiempos para ese tamaño
+            fprintf(out, "%d,%d,0,0\n", n, repeats);
+            printf("%d | %d | 0 | 0\n", n, repeats);
+            continue;
+        }
+
+
+        double avgSeq = total_seq / validRuns;
+        double avgBin = total_bin / validRuns;
+
+        fprintf(out, "%d,%d,%.10f,%.10f\n", n, validRuns, avgSeq, avgBin);
+        printf("%d | %d | %.10f | %.10f\n", n, validRuns, avgSeq, avgBin);
+
+    }
+
+    fclose(out);
+    printf("\nBenchmark guardado correctamente\n");
+}
+

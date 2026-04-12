@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     }
 
     int opt;
-    while((opt = getopt_long(argc, argv, "hg:tr:", longOptions, NULL)) != -1) {
+    while((opt = getopt_long(argc, argv, "hg:tr:b", longOptions, NULL)) != -1) {
         switch (opt) {
             case 'h':
                 print_help(argv[0]);
@@ -61,6 +61,11 @@ int main(int argc, char **argv)
                     return 1;
                 }
                 show_ranking(rankingAmount);
+                break;
+            }
+            case 'b':
+            {
+                run_search_benchmark();
                 break;
             }
             case '?':
