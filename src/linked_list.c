@@ -157,11 +157,11 @@ void printList(LinkedList linkedList){
 
     do {
         printf("ID: %d | Nombre: %s | Equipo: %s | Puntaje: %.2f | Competencias: %d\n",
-            currentNode->data->id,
-            currentNode->data->nombre,
-            currentNode->data->equipo,
-            currentNode->data->puntaje,
-            currentNode->data->competencias);
+            currentNode->data->ID,
+            currentNode->data->Nombre,
+            currentNode->data->Equipo,
+            currentNode->data->Puntaje,
+            currentNode->data->Competencias);
         currentNode = currentNode->next;
     }
     while(currentNode != linkedList->firstNode);

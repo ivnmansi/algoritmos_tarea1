@@ -106,3 +106,110 @@ void loadDeportistasCSV(LinkedList linkedList){
 
     fclose(f);
 }
+
+int loadDeportistasCSVToArray(Deportista** outArray, int* outCount){
+    *outArray = NULL;
+    *outCount = 0;
+
+    FILE* f = fopen(CSV_ROUTE, "r");
+    if(f == NULL){
+        return 0;
+    }
+
+    int capacity = 128;
+    int count = 0;
+    Deportista* array = malloc((size_t)capacity * sizeof(Deportista));
+    if(array == NULL){
+        fclose(f);
+        return 0;
+    }
+
+    char line[512];
+
+    if(fgets(line, sizeof(line), f) == NULL){
+        free(array);
+        fclose(f);
+        return 0;
+    }
+
+    while(fgets(line, sizeof(line), f) != NULL){
+        char* token = strtok(line, ",\n\r");
+        if(token == NULL){
+            continue;
+        }
+        int id = atoi(token);
+
+        token = strtok(NULL, ",\n\r");
+        if(token == NULL){
+            continue;
+        }
+        char* nombre = duplicateString(token);
+        if(nombre == NULL){
+            continue;
+        }
+
+        token = strtok(NULL, ",\n\r");
+        if(token == NULL){
+            free(nombre);
+            continue;
+        }
+        char* equipo = duplicateString(token);
+        if(equipo == NULL){
+            free(nombre);
+            continue;
+        }
+
+        token = strtok(NULL, ",\n\r");
+        if(token == NULL){
+            free(nombre);
+            free(equipo);
+            continue;
+        }
+        float puntaje = strtof(token, NULL);
+
+        token = strtok(NULL, ",\n\r");
+        if(token == NULL){
+            free(nombre);
+            free(equipo);
+            continue;
+        }
+        int competencias = atoi(token);
+
+        Deportista d = createDeportista(id, nombre, equipo, puntaje, competencias);
+        if(d == NULL){
+            free(nombre);
+            free(equipo);
+            continue;
+        }
+
+        if(count == capacity){
+            capacity *= 2;
+            Deportista* resized = realloc(array, (size_t)capacity * sizeof(Deportista));
+            if(resized == NULL){
+                deleteDeportista(d);
+                freeDeportistasArray(array, count);
+                fclose(f);
+                return 0;
+            }
+            array = resized;
+        }
+
+        array[count++] = d;
+    }
+
+    fclose(f);
+
+    *outArray = array;
+    *outCount = count;
+    return 1;
+}
+
+void freeDeportistasArray(Deportista* array, int count){
+    if(array == NULL){
+        return;
+    }
+    for(int i = 0; i < count; i++){
+        deleteDeportista(array[i]);
+    }
+    free(array);
+}

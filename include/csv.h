@@ -9,8 +9,8 @@
 
 
 
-void createDeportistasCSV(int cantidadDatos);
-void loadDeportistasCSV(LinkedList linkedList);
+int loadDeportistasCSVArray(Deportista** outArray, int* outCount);
+void freeDeportistasArray(Deportista* array, int count);
 
 
 #endif
