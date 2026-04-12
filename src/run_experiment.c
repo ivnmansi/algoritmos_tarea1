@@ -150,6 +150,8 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
                 rankingAmount = count;
             }
             printDeportistasArray(deportistas, rankingAmount, order);
+
+            freeDeportistasArray(deportistas, count);
             break;
         case SELECTION_SORT:
             // Aqui va selection sort optimizado
@@ -164,12 +166,7 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
                 rankingAmount = count;
             }
 
-            for(int i = 0; i < rankingAmount; i++){
-                if(order != 0){
-                    printf("%d. ", i + 1);
-                }
-                print_deportista(deportistas[i]);
-            }
+            printDeportistasArray(deportistas, rankingAmount, order);
 
             freeDeportistasArray(deportistas, count);
             break;
