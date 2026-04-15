@@ -70,3 +70,5 @@ compile_commands.json
 *.fls
 .latexmkrc
 *.blg
+html/
+docs/doxygen/latex/
