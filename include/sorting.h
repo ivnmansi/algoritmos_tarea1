@@ -101,6 +101,6 @@ void optimized_bubble_sort(Deportista *deportistas, int length, SortCriteria cri
  * @param criteria Criterio de comparacion.
  * @param order Sentido del ordenamiento.
  */
-void selection_sort(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order);
+void optimized_selection_sort(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order);
 
 #endif

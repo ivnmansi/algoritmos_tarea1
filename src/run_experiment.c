@@ -144,7 +144,7 @@ static void run_sort_operation(SortCriteria criteria, int rankingAmount, SortOrd
                 return;
             }
 
-            selection_sort(deportistas, count, criteria, order);
+            optimized_selection_sort(deportistas, count, criteria, order);
 
             if(rankingAmount > count) {
                 rankingAmount = count;

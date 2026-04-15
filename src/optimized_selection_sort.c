@@ -13,7 +13,7 @@
  * @param criteria Criterio a utilizar para la comparacion.
  * @param order Orden de ordenamiento (ascendente o descendente).
  */
-void selection_sort(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order)
+void optimized_selection_sort(Deportista *deportistas, int length, SortCriteria criteria, SortOrder order)
 {
     if(deportistas == NULL || length < 2) {
         return;
