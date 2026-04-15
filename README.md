@@ -34,7 +34,7 @@ El ejecutable queda en `build/algorithm_analyzer.out`.
 ./build/algorithm_analyzer.out -h
 ./build/algorithm_analyzer.out -g 1000
 ./build/algorithm_analyzer.out -t
-./build/algorithm_analyzer.out -i 42
+./build/algorithm_analyzer.out -id 42
 ./build/algorithm_analyzer.out -r 10
 ./build/algorithm_analyzer.out -b
 ./build/algorithm_analyzer.out -s
