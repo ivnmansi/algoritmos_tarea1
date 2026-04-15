@@ -31,7 +31,11 @@ En conjunto, estas funcionalidades permiten que el sistema no solo cumpla con lo
 Para el procesamiento de los datos de deportistas, el sistema incorpora distintos algoritmos de ordenamiento iterativos, cada uno con características particulares en cuanto a funcionamiento y rendimiento. Su implementación permite ordenar los datos según diversos criterios y, al mismo tiempo, comparar su comportamiento en distintos casos de prueba desde un punto de vista teórico y experimental.
 
 
-\label{subsec:bubblesort}
+\subsection{Bubble Sort Optimizado}\label{subsec:bubblesort}
+Bubble Sort es un algoritmo de ordenamiento iterativo que se basa en comparar elementos adyacentes y realizar intercambios si están en el orden incorrecto. En su versión optimizada, se introduce una bandera para detectar si se realizaron intercambios durante una pasada completa. Si no se realizaron intercambios, significa que el arreglo ya está ordenado, lo que permite finalizar el proceso antes de completar todas las pasadas necesarias en la versión estándar.
+
+Su implementación permite ordenar los registros de deportistas según distintos campos, como ID, puntaje, competencias, nombre y equipo. En el mejor caso, cuando los datos ya están ordenados, Bubble Sort optimizado tiene una complejidad temporal de \(O(n)\) debido a que solo realiza una pasada para verificar el orden. Sin embargo, en el caso promedio y peor caso, su complejidad es \(O(n^2)\) debido a la necesidad de realizar múltiples pasadas y comparaciones para ordenar completamente el arreglo.
+
 \subsection{Insertion Sort}
 Insertion Sort es un algoritmo de ordenamiento iterativo que construye gradualmente una porción ordenada del arreglo. Su funcionamiento consiste en tomar cada elemento y ubicarlo en la posición que le corresponde dentro de los elementos previamente ordenados, desplazando hacia la derecha aquellos que sean mayores o menores según el criterio de orden elegido.
 
@@ -41,7 +45,11 @@ Una de las ventajas de Insertion Sort es su buen desempeño cuando los datos ya 
 
 Teóricamente, Insertion Sort presenta complejidad \(O(n)\) en el mejor caso y \(O(n^2)\) tanto en el caso promedio como en el peor caso.
 
-\subsection{Selection Sort optimizado}
+\subsection{Selection Sort Optimizado}
+Selection Sort es un algoritmo de ordenamiento iterativo que se basa en seleccionar el elemento mínimo (o máximo) de la porción no ordenada del arreglo y colocarlo en su posición correcta. En su versión optimizada, se realiza una sola pasada para encontrar tanto el mínimo como el máximo en cada iteración, lo que reduce la cantidad de pasadas necesarias para ordenar completamente el arreglo.
+En este proyecto, al igual que los demás algoritmos, se implementó para ordenar los registros de deportistas según distintos criterios.
+
+La optimización de Selection Sort permite mejorar su rendimiento en ciertos casos, aunque su complejidad temporal sigue siendo \(O(n^2)\) en el caso promedio y peor caso, mientras que en el mejor caso se mantiene en \(O(n^2)\) debido a que el algoritmo realiza la misma cantidad de comparaciones independientemente del orden inicial de los datos.
 
 \subsection{Cocktail Shaker Sort}
 Este algoritmo corresponde a una variación de Bubble Sort (\ref{subsec:bubblesort}), la cual altera su rendimiento en ciertos casos. Cocktail Shaker Sort, o Bidirectional Bubble Sort, actúa recorriendo el arreglo en ambas direcciones durante cada iteración, es decir, desde izquierda a derecha y luego de derecha a izquierda. Esto permite que los elementos más grandes se desplacen hacia el final del arreglo y los más pequeños hacia el inicio de manera más eficiente, especialmente cuando la entrada se encuentra en un orden parcialmente invertido. Sin embargo, en el mejor caso, cuando los datos ya están ordenados, su rendimiento se ve afectado por la necesidad de realizar dos pasadas completas para verificar que el arreglo está ordenado, lo que resulta en un tiempo de ejecución mayor en comparación con otros algoritmos como Insertion Sort o Bubble Sort optimizado. En el caso promedio y peor caso, Cocktail Shaker Sort mantiene una complejidad \(O(n^2)\), aunque su rendimiento puede ser mejor que Bubble Sort en ciertos escenarios debido a su capacidad para mover elementos en ambas direcciones.
